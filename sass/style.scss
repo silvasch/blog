@@ -1,0 +1,14 @@
+@import "fonts";
+@import "header";
+@import "toc";
+@import "main";
+@import "footer";
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  color: blue;
+}

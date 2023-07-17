@@ -1,0 +1,17 @@
+header {
+	background-color: black;
+	color: white;
+	border-radius: 10px;
+	padding: 20px;
+}
+
+header > .title {
+	color: white;
+	font-size: 30px;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+header > .title:hover {
+	color: white;
+}

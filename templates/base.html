@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% block head %}
+    <title>
+      {% if page.title %}
+        {{ page.title }}
+      {% elif section.title %}
+        {{ section.title }}
+      {% else %}
+        {{ config.extra.title }}
+      {% endif %}
+    </title>
+    <link rel="stylesheet" href="{{ get_url(path='style.css', trailing_slash=false) | safe }}">
+  {% endblock head %}
+</head>
+<body>
+  
+  <header>
+    {% block header %}
+      <a class="title" href="{{ config.base_url }}">{{ config.extra.title }}</a>
+    {% endblock header %}
+  </header>
+
+  <div id="toc">
+    
+    {% if page.toc %}
+      {% set toc = page.toc %}
+    {% elif section.toc %}
+      {% set toc = section.toc %}
+    {% else %}
+      { % set toc = [] %}
+    {% endif %}
+
+    <h3>Table of contents</h3>
+    
+    <ul>
+      {% for h1 in toc %}
+        {% if h1.children %}
+          {% for h2 in h1.children %}
+            <li>
+              <a class="toc-a" href="{{ h2.permalink | safe }}">{{ h2.title }}</a>
+            </li>
+            {% if h2.children %}
+              <ul>
+                {% for h3 in h2.children %}
+                  <li>
+                    <a class="toc-a" href="{{ h3.permalink | safe }}">{{ h3.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    </ul>
+  
+  </div>
+
+  <main>
+    {% block content %}
+    {% endblock content %}
+  </main>  
+
+  <footer>
+    {% block footer %}
+      {% if config.base_url != current_url %}
+        <a href="{{ config.base_url }}">Home</a>
+      {% endif %}
+    {% endblock footer %}
+  </footer>
+
+</body>
+</html>
